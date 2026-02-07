@@ -4,15 +4,61 @@ sprintId: 001-setup-multi-backend-gtd-app
 name: setup-multi-backend-gtd-app
 title: Setup Multi Backend Gtd App
 status:
-  phase: init
+  phase: planning
   state: active
-  message: Sprint started
+  message: Architecture and PRDs completed, ready for implementation
 metadata:
   createdAt: 2026-02-07T13:45:29.270Z
-  updatedAt: 2026-02-07T13:45:29.270Z
+  updatedAt: 2026-02-07T12:00:00Z
   parentComponent: onecoder-cli
   specId: SPEC-CLI-002
-tasks: []
+tasks:
+  - id: task-001
+    title: Create comprehensive .gitignore for multi-backend project
+    status: completed
+    type: setup
+    description: Added .gitignore covering node_modules, build outputs, environment files, SQLite databases, Cloudflare Workers, and IDE files
+    completedAt: 2026-02-07T11:09:00Z
+  - id: task-002
+    title: Design hybrid local/cloud architecture (ADR-001)
+    status: completed
+    type: architecture
+    description: Created Architecture Decision Record for hybrid local Docker + Cloudflare Workers setup with Backend Registry Pattern
+    completedAt: 2026-02-07T11:30:00Z
+    specId: ADR-001
+  - id: task-003
+    title: Create Frontend PRD (SPEC-FRONTEND-001)
+    status: completed
+    type: documentation
+    description: Defined Next.js GTD app requirements including task/project management, backend switching UI, and technical stack
+    completedAt: 2026-02-07T11:35:00Z
+    specId: SPEC-FRONTEND-001
+  - id: task-004
+    title: Create Gateway PRD with hybrid routing (SPEC-GATEWAY-001)
+    status: completed
+    type: documentation
+    description: Updated Gateway PRD to support runtime backend switching between local Docker and cloud backends using Registry Pattern
+    completedAt: 2026-02-07T11:40:00Z
+    specId: SPEC-GATEWAY-001
+  - id: task-005
+    title: Create Bun SQLite Backend PRD (SPEC-BACKEND-001)
+    status: completed
+    type: documentation
+    description: Defined Bun + SQLite backend as local-first default with full CRUD API, database schema, and Docker setup
+    completedAt: 2026-02-07T11:45:00Z
+    specId: SPEC-BACKEND-001
+  - id: task-006
+    title: Create Specs Index README
+    status: completed
+    type: documentation
+    description: Created overview document linking all PRDs, ADR, and providing implementation roadmap
+    completedAt: 2026-02-07T11:50:00Z
+  - id: task-007
+    title: Document architecture insights and friction in FEEDBACK.md
+    status: completed
+    type: process
+    description: Captured insights on Registry Pattern, security by design, and friction points around sprint task tracking
+    completedAt: 2026-02-07T12:00:00Z
 artifacts:
   readme: README.md
   retro: RETRO.md
