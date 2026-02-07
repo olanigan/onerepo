@@ -23,3 +23,35 @@ When you encounter an error, a confusing workflow, or an opportunity for optimiz
 - **Issue**: Missing runtimes for Java, PHP, .NET, Elixir in the current environment.
 - **Impact**: Deferred multi-language backend setup.
 - **Action**: Focusing on TypeScript/Bun stack for Sprint 1.
+
+### [2026-02-07] Architecture Design Session - Insights & Friction
+
+**Completed Work:**
+- Created comprehensive `.gitignore` covering all project directories
+- Designed hybrid local/cloud architecture (ADR-001)
+- Created 4 PRDs: Frontend, Gateway, Bun SQLite Backend, and Architecture Summary
+- Updated Gateway PRD to support runtime backend switching
+
+**Insights:**
+1. **Registry Pattern Value**: The BackendRegistry interface provides clean separation between local Docker (env vars) and cloud (KV) configurations. This will make testing much easier.
+
+2. **Security by Design**: Network isolation in Docker Compose prevents accidental exposure of local backends. Only gateway exposed on host.
+
+3. **Header-Based Routing**: Using `x-backend` + `x-backend-location` headers enables powerful comparison capabilities—users can test local vs cloud from same UI.
+
+**Friction Points:**
+1. **No Existing Specs Directory Structure**: Had to create specs/ from scratch. Unclear if there's a preferred format for ADRs vs PRDs.
+
+2. **Sprint Task Tracking**: Unclear how to manually add tasks to sprint.yaml. The CLI expects tasks to be created via commands, but I was doing design work that doesn't fit typical task patterns.
+
+3. **Documentation Overlap**: FEEDBACK.md captures friction, but AGENTS.md section 2 says to update AGENTS.md for operational best practices. Need clarity on when to use which.
+
+**Suggestions:**
+1. Create a `onecoder task add` command for manual task addition during design/architecture phases
+2. Add templates for ADRs and PRDs to `.agent/templates/`
+3. Clarify in AGENTS.md: FEEDBACK.md for bugs/friction, AGENTS.md for discovered best practices
+4. Consider a `onecoder docs generate` command to scaffold architecture docs
+
+**Technical Debt Identified:**
+- None yet—architecture is clean with clear interfaces
+- Future concern: Cloudflare D1 backend schema migrations will need different approach than SQLite
