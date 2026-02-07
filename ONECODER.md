@@ -67,6 +67,12 @@ onecoder sprint close --went-well "Fast implementation" --to-improve "Test cover
 ```
 This generates a `RETRO.md` and officially closes the governance loop.
 
+### E. Sprint Data Schema (Manual Editing)
+If you must manually edit `sprint.yaml`:
+- **Valid Statuses**: `todo`, `in_progress`, `done`.
+- **Invalid Statuses**: `completed`, `finished`, `closed` (these will be ignored).
+- **Required Fields**: `id`, `title`, `status`, `type`.
+
 ## 4. Architecture & Design
 
 ### Architecture Decision Records (ADRs)

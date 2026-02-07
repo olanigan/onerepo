@@ -37,4 +37,6 @@ This document is the **Standard Operating Procedure (SOP)** for agents. It summa
 - **Backends**: Place new backend services in `backends/<lang>-<framework>/`.
 
 ### Sprint Tracking
-- **Manual Tasks**: For design/planning work not captured by CLI commands, manually edit `.sprint/<sprint-name>/sprint.yaml` to add task entries. Follow the existing YAML structure.
+- **Manual Tasks**: For design/planning work not captured by CLI commands, manually edit `.sprint/<sprint-name>/sprint.yaml`.
+  - **Critical**: Use `status: done` for completed tasks. The CLI ignores `completed`.
+  - Structure: `id`, `title`, `status` (`todo`, `in_progress`, `done`), `type`.

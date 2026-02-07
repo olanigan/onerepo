@@ -11,3 +11,7 @@
 {"timestamp":"2026-02-07T16:26:22.713Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","chore: update sprint.yaml with completed architecture and documentation tasks"],"options":{}}}
 {"timestamp":"2026-02-07T16:26:25.011Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","status"],"options":{}}}
 {"timestamp":"2026-02-07T16:41:59.693Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","chore: move ADR to docs/architecture/decisions/ and update AGENTS.md with architecture guidelines"],"options":{}}}
+{"timestamp":"2026-02-07T16:42:02.869Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","status"],"options":{}}}
+{"timestamp":"2026-02-07T16:49:55.516Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","status"],"options":{}}}
+{"timestamp":"2026-02-07T16:51:54.068Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","status"],"options":{}}}
+{"timestamp":"2026-02-07T16:51:58.198Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","fix: update sprint task statuses from completed to done for CLI compatibility"],"options":{}}}
