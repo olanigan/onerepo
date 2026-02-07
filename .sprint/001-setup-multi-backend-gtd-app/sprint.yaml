@@ -1,0 +1,19 @@
+$schema: https://onecoder.dev/schemas/sprint.json
+version: 1.0.0
+sprintId: 001-setup-multi-backend-gtd-app
+name: setup-multi-backend-gtd-app
+title: Setup Multi Backend Gtd App
+status:
+  phase: init
+  state: active
+  message: Sprint started
+metadata:
+  createdAt: 2026-02-07T13:45:29.270Z
+  updatedAt: 2026-02-07T13:45:29.270Z
+  parentComponent: onecoder-cli
+  specId: SPEC-CLI-002
+tasks: []
+artifacts:
+  readme: README.md
+  retro: RETRO.md
+  walkthrough: walkthrough.md
