@@ -9,7 +9,7 @@ status:
   message: Architecture and PRDs completed, ready for implementation
 metadata:
   createdAt: 2026-02-07T13:45:29.270Z
-  updatedAt: 2026-02-07T12:00:00Z
+  updatedAt: 2026-02-07T12:05:00Z
   parentComponent: onecoder-cli
   specId: SPEC-CLI-002
 tasks:
@@ -59,6 +59,12 @@ tasks:
     type: process
     description: Captured insights on Registry Pattern, security by design, and friction points around sprint task tracking
     completedAt: 2026-02-07T12:00:00Z
+  - id: task-008
+    title: Move ADR to correct location and update AGENTS.md
+    status: completed
+    type: process
+    description: Moved ADR-001 from specs/ to docs/architecture/decisions/ per ONECODER.md standards. Updated AGENTS.md with Architecture and Sprint Tracking sections.
+    completedAt: 2026-02-07T12:05:00Z
 artifacts:
   readme: README.md
   retro: RETRO.md

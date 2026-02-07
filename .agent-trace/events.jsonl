@@ -9,3 +9,5 @@
 {"timestamp":"2026-02-07T16:25:30.316Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","docs: add hybrid architecture ADR and PRDs for frontend, gateway, and bun-sqlite backend"],"options":{}}}
 {"timestamp":"2026-02-07T16:25:36.976Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","status"],"options":{}}}
 {"timestamp":"2026-02-07T16:26:22.713Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","chore: update sprint.yaml with completed architecture and documentation tasks"],"options":{}}}
+{"timestamp":"2026-02-07T16:26:25.011Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","status"],"options":{}}}
+{"timestamp":"2026-02-07T16:41:59.693Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","chore: move ADR to docs/architecture/decisions/ and update AGENTS.md with architecture guidelines"],"options":{}}}

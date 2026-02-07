@@ -17,7 +17,7 @@ We've designed a **hybrid local/cloud architecture** that supports:
 ## Created Documents
 
 ### Architecture
-1. **`specs/ADR-001-Hybrid-Architecture.md`** - Complete architecture decision record
+1. **`docs/architecture/decisions/ADR-001-Hybrid-Architecture.md`** - Complete architecture decision record
    - Backend Registry Pattern
    - Environment-aware routing
    - Docker Compose setup
@@ -102,8 +102,7 @@ onerepo/
 ├── docker-compose.yml     # Local orchestration
 └── specs/
     ├── openapi.yaml       # API contract
-    ├── ADR-001-Hybrid-Architecture.md
-    ├── PRD-Frontend.md
+    └── PRD-Frontend.md
     ├── PRD-Gateway.md
     └── PRD-Backend-BunSQLite.md
 ```
@@ -173,6 +172,6 @@ curl -H "x-backend: bun-sqlite" \
 See the detailed PRDs and ADR in `specs/` directory.
 
 Key files for developers:
-1. `specs/ADR-001-Hybrid-Architecture.md` - Full architecture details
+1. `docs/architecture/decisions/ADR-001-Hybrid-Architecture.md` - Full architecture details
 2. `specs/openapi.yaml` - API contract (follow this!)
 3. `AGENTS.md` - Development workflow and conventions

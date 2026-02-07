@@ -1,44 +1,40 @@
 # Agent Operational Guide & Best Practices
 
-This document serves as the primary operational manual for AI agents working within the `onerepo` project. It defines how to effectively use the `onecoder` CLI and manage the project's evolution.
+**Current Focus**: Fullstack TypeScript (Next.js + Bun/SQLite) | **Governing Doc**: [`ONECODER.md`](./ONECODER.md)
 
-## 1. `onecoder` CLI Standard Operating Procedures
+This document is the **Standard Operating Procedure (SOP)** for agents. It summarizes *how* to work effectively, while [`ONECODER.md`](./ONECODER.md) explains the *what* and *why* of the tooling.
 
-### Sprint Management
-- **Start**: Always ensure you are in an active task before coding.
-  ```bash
-  onecoder sprint start --name "task-name-kebab-case"
-  ```
-- **Commit**: NEVER use `git commit` directly. Use the atomic commit command to ensure governance metadata is captured.
-  ```bash
-  onecoder sprint commit -m "feat: description of change"
-  ```
-  *Note: Stage files with `git add` before committing, or pass specific files if the CLI supports it in the future.*
+## 1. Quick Start Protocol
 
-- **Status**: Check where you are.
-  ```bash
-  onecoder sprint status
-  ```
+1.  **Check In**: Read `FEEDBACK.md` to see recent issues.
+2.  **Start Work**:
+    ```bash
+    onecoder sprint start --name "your-task-name"
+    ```
+3.  **Code & Verify**: Use `bun` for runtime and tests.
+4.  **Commit**:
+    ```bash
+    git add .
+    onecoder sprint commit -m "type: description"
+    ```
 
-### Governance
-- **Zero-Debt**: We aim for clean code. Ensure linting and types pass before marking a task done.
-- **Traceability**: If a Specification ID exists (in `specs/`), reference it in commits (e.g., `--spec-id SPEC-001`).
+## 2. The "Voice of the Coder" Loop
 
-## 2. Self-Learning & Auto-Update Protocol
+- **Found a Bug/Blocker?** → Log it in [`FEEDBACK.md`](./FEEDBACK.md) **immediately**.
+- **Found a Better Way?** → Update this file (`AGENTS.md`) with the new best practice.
 
-**Instruction to Agents:**
-If you discover a new pattern, a friction point with the `onecoder` CLI, or a project-specific constraint:
+## 3. Proven Patterns (Learned Best Practices)
 
-1.  **Frictions/Bugs**: Log them in `FEEDBACK.md`. This is essential for the "Voice of the Coder" loop.
-2.  **Operational Best Practices**: If you find a better way to do things (e.g., a specific test command sequence), **update this `AGENTS.md` file**.
+*Agents: Add new operational discoveries below this line.*
 
----
+### Testing
+- Always run `bun test` before committing.
+- For UI tests, ensure the dev server is running before executing Playwright.
 
-## 3. Project Specifics: The "Backend Shootout"
+### Architecture
+- **Specs (PRDs)**: Place Product Requirements Documents in `specs/` (e.g., `PRD-XXX.md`).
+- **Decisions (ADRs)**: Place Architecture Decision Records in `docs/architecture/decisions/` (e.g., `ADR-XXX.md`).
+- **Backends**: Place new backend services in `backends/<lang>-<framework>/`.
 
-- **Architecture**: One Frontend (Next.js), Multiple Backends, One Gateway (Cloudflare).
-- **Current Sprint Focus**: Fullstack TypeScript (Next.js + Bun/SQLite).
-- **Path Conventions**:
-  - `frontend/`: The Next.js App
-  - `gateways/`: The Routing Logic
-  - `backends/<lang>-<framework>/`: The implementations.
+### Sprint Tracking
+- **Manual Tasks**: For design/planning work not captured by CLI commands, manually edit `.sprint/<sprint-name>/sprint.yaml` to add task entries. Follow the existing YAML structure.
