@@ -1,0 +1,69 @@
+$schema: https://onecoder.dev/schemas/sprint.json
+version: 1.0.0
+sprintId: 007-mcp-server-setup
+name: mcp-server-setup
+title: Setup MCP Server Infrastructure
+status:
+  phase: implementation
+  state: active
+  message: MCP server documentation and package structure complete, SDK integration in progress
+metadata:
+  createdAt: 2026-02-22T22:07:00Z
+  updatedAt: 2026-02-22T23:00:00Z
+  parentComponent: onecoder-cli
+  specId: SPEC-MCP-001
+tasks:
+  - id: task-001
+    title: Create MCP PRD and architecture documentation
+    status: done
+    type: documentation
+    description: Define MCP server requirements, architecture, and integration points with onecoder ecosystem
+    completedAt: 2026-02-22T22:30:00Z
+  - id: task-002
+    title: Set up MCP server package and dependencies
+    status: done
+    type: setup
+    description: Initialize bun package, install mcp SDK, configure tsconfig for MCP protocol
+    completedAt: 2026-02-22T22:45:00Z
+  - id: task-003
+    title: Implement core MCP server with tools and resources
+    status: in_progress
+    type: implementation
+    description: Build MCP server exposing onecoder CLI commands as MCP tools, sprint data as resources - framework ready, SDK integration pending
+    completedAt:
+  - id: task-004
+    title: Create mcp-cli validation and testing setup
+    status: todo
+    type: tooling
+    description: Document mcp-cli installation, configuration, and validation commands for testing MCP server
+    completedAt:
+  - id: task-005
+    title: Build test MCP clients for validation
+    status: todo
+    type: testing
+    description: Create lightweight test clients to validate MCP server tools and resources functionality
+    completedAt:
+  - id: task-006
+    title: Document MCP server and integration points
+    status: done
+    type: documentation
+    description: Create comprehensive documentation for MCP server usage, available tools, resources, and integration with Claude Code
+    completedAt: 2026-02-22T23:00:00Z
+  - id: task-007
+    title: Validate MCP server with mcp-cli and test clients
+    status: todo
+    type: verification
+    description: Run full validation suite including mcp-cli checks and test client scenarios
+    completedAt:
+  - id: task-008
+    title: Commit and push sprint 007 work
+    status: todo
+    type: process
+    description: Create atomic commits for all sprint 007 work and push to sprint branch
+    completedAt:
+artifacts:
+  readme: README.md
+  retro: RETRO.md
+  mcp_spec: context/SPEC-MCP-001.md
+  mcp_setup_guide: context/MCP-SETUP.md
+  validation_guide: context/MCP-VALIDATION.md
