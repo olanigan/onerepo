@@ -279,7 +279,7 @@ onecoder sprint status --json
 **Available Resources**:
 - `sprint://all` - List all sprints
 - `sprint://active` - Get active sprint
-- `sprint://007-mcp-server-setup` - Get specific sprint by ID
+- `sprint://002-mcp-server-setup` - Get specific sprint by ID
 
 **Response Format**: YAML/JSON containing sprint metadata and tasks
 

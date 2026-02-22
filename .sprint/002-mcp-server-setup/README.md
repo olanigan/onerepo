@@ -1,4 +1,4 @@
-# Sprint 007: MCP Server Infrastructure Setup
+# Sprint 002: MCP Server Infrastructure Setup
 
 ## Sprint Goal
 
@@ -30,7 +30,7 @@ The onecoder ecosystem needs MCP server support to enable Claude Code and other 
 | 005 | Build test MCP clients for validation | ⏳ | testing |
 | 006 | Document MCP server and integration points | ⏳ | documentation |
 | 007 | Validate MCP server with mcp-cli and test clients | ⏳ | verification |
-| 008 | Commit and push sprint 007 work | ⏳ | process |
+| 008 | Commit and push sprint 002 work | ⏳ | process |
 
 ## Key Architecture
 
@@ -89,7 +89,7 @@ The onecoder ecosystem needs MCP server support to enable Claude Code and other 
 
 ## Next Steps
 
-1. ✅ Create sprint 007 documentation structure
+1. ✅ Create sprint 002 documentation structure
 2. 🔄 Document MCP requirements and architecture (SPEC-MCP-001.md)
 3. Set up MCP server package with bun
 4. Implement core MCP server and tools
@@ -106,7 +106,7 @@ The onecoder ecosystem needs MCP server support to enable Claude Code and other 
 - [ ] Validates with mcp-cli without errors
 - [ ] Test MCP client successfully calls all tools
 - [ ] Documentation covers setup, usage, and validation
-- [ ] All changes committed to claude/sprint-007-setup-TZ8Z6 branch
+- [ ] All changes committed to sprint branch
 
 ## Related Sprints & Stories
 

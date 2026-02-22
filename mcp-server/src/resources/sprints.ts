@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import { Logger } from "../utils/logger.js";
@@ -30,7 +31,6 @@ export async function handleReadSprint(uri: string): Promise<string> {
       const sprintData = sprints.map((sprint) => {
         const yamlPath = path.join(sprintDir, sprint, "sprint.yaml");
         if (fs.existsSync(yamlPath)) {
-          const content = fs.readFileSync(yamlPath, "utf-8");
           return {
             id: sprint,
             name: sprint.split("-").slice(1).join("-"),
@@ -59,7 +59,6 @@ export async function handleReadSprint(uri: string): Promise<string> {
     if (uriPart === "active") {
       // Get current active sprint (based on git branch)
       try {
-        const { execSync } = require("child_process");
         const branch = execSync("git rev-parse --abbrev-ref HEAD", {
           encoding: "utf-8",
           cwd: projectRoot,

@@ -13,13 +13,13 @@ const server = new OnecodeServer();
 
 // Handle shutdown gracefully
 process.on("SIGINT", async () => {
-  console.log("\n📴 Shutting down MCP server...");
+  console.error("\n📴 Shutting down MCP server...");
   await server.shutdown();
   process.exit(0);
 });
 
 process.on("SIGTERM", async () => {
-  console.log("\n📴 Shutting down MCP server...");
+  console.error("\n📴 Shutting down MCP server...");
   await server.shutdown();
   process.exit(0);
 });
@@ -37,9 +37,9 @@ process.on("unhandledRejection", (reason) => {
 
 // Start server
 try {
-  console.log("🚀 Starting OneCoder MCP Server...");
+  console.error("🚀 Starting OneCoder MCP Server...");
   await server.start();
-  console.log("✅ MCP Server ready for connections");
+  console.error("✅ MCP Server ready for connections");
 } catch (error) {
   console.error("❌ Failed to start MCP server:", error);
   process.exit(1);

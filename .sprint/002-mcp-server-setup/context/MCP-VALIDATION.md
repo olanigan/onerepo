@@ -102,7 +102,7 @@ mcp-cli call onecoder/sprint-status
 #     \"success\": true,
 #     \"data\": {
 #       \"activeSprintId\": \"...\",
-#       \"branch\": \"claude/sprint-007-setup-TZ8Z6\",
+#       \"branch\": \"claude/sprint-002-setup\",
 #       \"phase\": \"...\",
 #       \"tasks\": [...]
 #     }
@@ -146,7 +146,7 @@ mcp-cli read sprint://all
 # Expected: List of all sprints with metadata
 
 # Read specific sprint
-mcp-cli read sprint://007-mcp-server-setup
+mcp-cli read sprint://002-mcp-server-setup
 
 # Expected: Full sprint.yaml content
 
@@ -285,7 +285,7 @@ class TestClient {
   private async testSprintResources(): Promise<void> {
     console.log("🔖 Testing Sprint Resources");
 
-    const patterns = ["sprint://all", "sprint://active", "sprint://007-mcp-server-setup"];
+    const patterns = ["sprint://all", "sprint://active", "sprint://002-mcp-server-setup"];
 
     for (const pattern of patterns) {
       const startTime = Date.now();
@@ -467,7 +467,7 @@ git reset HEAD~1  # Undo test commit
 ```bash
 # Verify all expected resources are accessible
 
-mcp-cli read sprint://007-mcp-server-setup && echo "✓ Sprint 007 data available"
+mcp-cli read sprint://002-mcp-server-setup && echo "✓ Sprint 002 data available"
 mcp-cli read specification://SPEC-MCP-001 && echo "✓ MCP Spec available"
 mcp-cli read architecture://ADR-001 && echo "✓ ADR-001 available"
 mcp-cli read feedback://recent && echo "✓ Feedback log available"

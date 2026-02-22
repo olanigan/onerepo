@@ -46,8 +46,8 @@ export class Logger {
 
     const formatted = this.formatMessage(level, message);
 
-    // Log to console
-    console.log(formatted);
+    // Log to stderr (stdout is reserved for MCP stdio protocol)
+    console.error(formatted);
 
     // Log to file
     try {

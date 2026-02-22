@@ -1,6 +1,6 @@
 $schema: https://onecoder.dev/schemas/sprint.json
 version: 1.0.0
-sprintId: 007-mcp-server-setup
+sprintId: 002-mcp-server-setup
 name: mcp-server-setup
 title: Setup MCP Server Infrastructure
 status:
@@ -56,10 +56,10 @@ tasks:
     description: Run full validation suite including mcp-cli checks and test client scenarios
     completedAt:
   - id: task-008
-    title: Commit and push sprint 007 work
+    title: Commit and push sprint 002 work
     status: todo
     type: process
-    description: Create atomic commits for all sprint 007 work and push to sprint branch
+    description: Create atomic commits for all sprint 002 work and push to sprint branch
     completedAt:
 artifacts:
   readme: README.md

@@ -1,4 +1,11 @@
-import { Server, StdioServerTransport } from "@modelcontextprotocol/sdk/server/index.js";
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import {
+  ListToolsRequestSchema,
+  CallToolRequestSchema,
+  ListResourcesRequestSchema,
+  ReadResourceRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
 import { Logger } from "./utils/logger.js";
 import * as sprintTools from "./tools/sprint.js";
 import * as projectTools from "./tools/project.js";
@@ -36,10 +43,10 @@ export class OnecodeServer {
       `Initializing OneCoder MCP Server with project root: ${this.projectRoot}`
     );
 
-    this.server = new Server({
-      name: "onecoder-mcp",
-      version: "1.0.0",
-    });
+    this.server = new Server(
+      { name: "onecoder-mcp", version: "1.0.0" },
+      { capabilities: { tools: {}, resources: {} } }
+    );
 
     this.setupTools();
     this.setupResources();
@@ -257,7 +264,7 @@ export class OnecodeServer {
 
   private setupHandlers(): void {
     // Handle tool listing
-    this.server.setRequestHandler({ method: "tools/list" }, async () => {
+    this.server.setRequestHandler(ListToolsRequestSchema, async () => {
       const tools = Array.from(this.tools.values()).map((tool) => ({
         name: tool.name,
         description: tool.description,
@@ -269,8 +276,8 @@ export class OnecodeServer {
     });
 
     // Handle tool calls
-    this.server.setRequestHandler({ method: "tools/call" }, async (request: Record<string, unknown>) => {
-      const name = request.name as string;
+    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+      const name = request.params.name;
       logger.debug(`Tool call: ${name}`);
 
       const tool = this.tools.get(name);
@@ -279,14 +286,18 @@ export class OnecodeServer {
       }
 
       try {
-        const result = await tool.handler(request.arguments);
+        const result = await tool.handler(request.params.arguments);
         logger.debug(`Tool ${name} completed successfully`);
         return {
-          type: "text",
-          text:
-            typeof result === "string"
-              ? result
-              : JSON.stringify(result),
+          content: [
+            {
+              type: "text" as const,
+              text:
+                typeof result === "string"
+                  ? result
+                  : JSON.stringify(result),
+            },
+          ],
         };
       } catch (error) {
         logger.error(
@@ -298,7 +309,7 @@ export class OnecodeServer {
     });
 
     // Handle resource listing
-    this.server.setRequestHandler({ method: "resources/list" }, async () => {
+    this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
       const resources = Array.from(this.resources.values()).map((r) => ({
         uri: r.uri + "*",
         name: r.name,
@@ -310,8 +321,8 @@ export class OnecodeServer {
     });
 
     // Handle resource reading
-    this.server.setRequestHandler({ method: "resources/read" }, async (request: Record<string, unknown>) => {
-      const uri = request.uri as string;
+    this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+      const uri = request.params.uri;
       logger.debug(`Resource read: ${uri}`);
 
       // Find matching resource handler
