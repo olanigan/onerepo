@@ -4,12 +4,12 @@ sprintId: 001-setup-multi-backend-gtd-app
 name: setup-multi-backend-gtd-app
 title: Setup Multi Backend Gtd App
 status:
-  phase: planning
+  phase: implementation
   state: active
-  message: Architecture and PRDs completed, ready for implementation
+  message: UI migration complete, connecting to backend gateway
 metadata:
   createdAt: 2026-02-07T13:45:29.270Z
-  updatedAt: 2026-02-07T12:05:00Z
+  updatedAt: 2026-02-21T14:00:00Z
   parentComponent: onecoder-cli
   specId: SPEC-CLI-002
 tasks:
@@ -65,6 +65,36 @@ tasks:
     type: process
     description: Moved ADR-001 from specs/ to docs/architecture/decisions/ per ONECODER.md standards. Updated AGENTS.md with Architecture and Sprint Tracking sections.
     completedAt: 2026-02-07T12:05:00Z
+  - id: task-009
+    title: Migrate FocusFlow UI from personal/ to onerepo/frontend
+    status: done
+    type: implementation
+    description: Removed AI features (Goal Architect, AI Coach), implemented GTD segmented layout with Morning/Afternoon/Evening columns, multi-view navigation (Today/Backlog/Archive/Insights)
+    completedAt: 2026-02-21T14:00:00Z
+  - id: task-010
+    title: Integrate recharts for Insights dashboard
+    status: done
+    type: implementation
+    description: Installed recharts, implemented execution velocity bar chart by time segment with Morning/Afternoon/Evening breakdown
+    completedAt: 2026-02-21T14:00:00Z
+  - id: task-011
+    title: Create agent-browser skill for UI validation
+    status: done
+    type: tooling
+    description: Created onerepo/.agent/skills/agent-browser/SKILL.md with 60+ commands documented for browser automation
+    completedAt: 2026-02-21T14:00:00Z
+  - id: task-012
+    title: Visual verification of AI-free UI
+    status: done
+    type: verification
+    description: Verified no AI Goal Architect/AI Coach elements exist via agent-browser, confirmed recharts renders correctly in Insights view
+    completedAt: 2026-02-21T14:00:00Z
+  - id: task-013
+    title: Connect frontend to backend gateway
+    status: todo
+    type: integration
+    description: Replace localStorage persistence with API calls through onerepo/gateways/ using x-backend header routing
+    completedAt:
 artifacts:
   readme: README.md
   retro: RETRO.md

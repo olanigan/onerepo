@@ -55,3 +55,28 @@ When you encounter an error, a confusing workflow, or an opportunity for optimiz
 **Technical Debt Identified:**
 - None yet—architecture is clean with clear interfaces
 - Future concern: Cloudflare D1 backend schema migrations will need different approach than SQLite
+
+### [2026-02-21] FocusFlow UI Migration
+
+**Completed Work:**
+- Migrated FocusFlow UI from personal/ to onerepo/frontend
+- Removed all AI features (Goal Architect, AI Coach)
+- Implemented GTD segmented layout (Morning/Afternoon/Evening)
+- Added multi-view navigation (Today/Backlog/Archive/Insights)
+- Integrated recharts for Insights dashboard
+- Created agent-browser skill for UI validation
+- Verified UI via headless browser automation
+
+**Insights:**
+1. **agent-browser Workflow**: Using `npx agent-browser snapshot -i` provides clean accessibility tree for AI agents without parsing HTML
+2. **Port Conflicts**: Dev servers can leave zombie processes - always check `lsof -i :3000` before debugging
+3. **Tailwind v4**: Uses `@import "tailwindcss"` syntax, glassmorphism works via custom `.glass-panel` class
+
+**Friction Points:**
+1. **Missing Skill**: Handoff referenced `onerepo/.agent/skills/agent-browser.md` but skills require `skills/<name>/SKILL.md` path - created proper structure
+2. **Default Next.js Title**: Page title still shows "Create Next App" from default layout - needs metadata update
+
+**Next Steps:**
+- Connect frontend localStorage to backend gateway API
+- Update Next.js metadata for proper title
+- Test full CRUD flow with Bun/SQLite backend
