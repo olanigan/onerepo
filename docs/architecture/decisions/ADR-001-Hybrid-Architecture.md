@@ -1,20 +1,57 @@
 # Architecture Decision Record: Hybrid Local/Cloud Backend Routing
 
 **ADR ID:** ADR-001  
-**Status:** Proposed  
+**Status:** Active  
 **Date:** 2026-02-07  
-**Context:** v0.1.0 Local-First with Docker + Future Cloud Deploy
+**Updated:** 2026-02-21  
+**Context:** v0.1.x Hono D1 + Gateway + Next.js
 
 ---
 
 ## 1. Problem Statement
 
 We need an architecture that supports:
-- **Local Development**: Docker Compose with Bun/SQLite backends
+- **Local Development**: Local development with wrangler dev
 - **Cloud Production**: Cloudflare Workers + D1
 - **Hybrid Mode**: Gateway can route to local OR cloud backends at runtime
 - **Clean Code**: Minimal conditional logic, good separation of concerns
 - **Security**: Local backends never exposed to internet
+
+---
+
+## 1.1 Current Implementation (v0.1.x)
+
+**Deployed Stack:**
+- **Frontend**: Next.js on Cloudflare Pages
+- **Gateway**: Hono-based Cloudflare Worker with x-backend routing
+- **Backend**: Hono + D1 (Cloudflare)
+
+**Data Model (Backend):**
+```typescript
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: 'inbox' | 'next' | 'waiting' | 'done';
+  project_id: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  status: 'active' | 'someday' | 'archive';
+  created_at: string;
+  updated_at: string;
+}
+```
+
+**Frontend Views:**
+- **Inbox**: Tasks needing review (status: 'inbox')
+- **Next**: Ready to work on (status: 'next')
+- **Waiting**: On hold/deferred (status: 'waiting')
+- **Done**: Completed (status: 'done')
 
 ---
 
@@ -147,6 +184,40 @@ gateways/
 ├── wrangler.toml             # Cloudflare config
 ├── docker-compose.yml        # Local orchestration
 └── Dockerfile                # Gateway container
+```
+
+---
+
+### 2.6 Hono D1 Backend Implementation (v0.1.x)
+
+Current production backend using Hono + Cloudflare D1:
+
+```
+backends/hono-d1/
+├── src/
+│   ├── index.ts          # Hono app with all routes
+│   └── schema.ts         # Drizzle ORM schema
+├── schema.sql            # D1 database schema
+├── wrangler.toml         # D1 binding config
+└── package.json
+```
+
+**Routes:**
+- `GET /tasks` - List all tasks (optional ?status=filter)
+- `GET /tasks/:id` - Get single task
+- `POST /tasks` - Create task
+- `PUT /tasks/:id` - Update task
+- `DELETE /tasks/:id` - Delete task
+- `GET /projects` - List projects
+- `GET /projects/:id/tasks` - Get tasks for project
+- `GET /health` - Health check
+
+**Environment:**
+```toml
+# wrangler.toml
+[[d1_databases]]
+binding = "DB"
+database_name = "gtd-db"
 ```
 
 ---
@@ -443,17 +514,19 @@ interface Env {
 
 ## 6. Migration Path
 
-**v0.1.0 (Current):**
-- Local Docker setup only
-- Bun SQLite as default
-- CF D1 backend stubbed/optional
+**v0.1.x (Current):**
+- Hono D1 backend deployed to Cloudflare Workers
+- Gateway with x-backend header routing
+- Next.js frontend on Cloudflare Pages
+- Frontend uses backend status model (inbox/next/waiting/done)
 
 **v0.2.0:**
-- Deploy CF D1 backend to Cloudflare
-- Add cloud registry
-- Support hybrid routing
+- Add Bun SQLite local backend for development
+- Update gateway to support local backend routing
+- Docker Compose for local full-stack development
 
-**v0.3.0:**
+**v1.0.0:**
+- VPS deployment with self-hosted backends
 - Add authentication
 - Add remaining backends (Elixir, Ruby, etc.)
 - Performance benchmarking suite

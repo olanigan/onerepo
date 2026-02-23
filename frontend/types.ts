@@ -1,23 +1,21 @@
-
-export type TimeSegment = 'MORNING' | 'AFTERNOON' | 'EVENING' | 'UNASSIGNED';
-
-export type TaskStatus = 'PRIORITY' | 'BACKLOG' | 'ARCHIVED';
+export type TaskStatus = 'inbox' | 'next' | 'waiting' | 'done';
 
 export interface Task {
   id: string;
   title: string;
   description: string;
-  segment: TimeSegment;
   status: TaskStatus;
+  projectId: string | null;
   completed: boolean;
-  createdAt: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export type ViewType = 'TODAY' | 'BACKLOG' | 'ARCHIVE' | 'INSIGHTS';
+export type ViewType = 'TODAY' | 'BACKLOG' | 'WAITING' | 'DONE';
 
 export interface TaskInput {
   title: string;
   description?: string;
-  segment?: TimeSegment;
   status?: TaskStatus;
+  projectId?: string | null;
 }

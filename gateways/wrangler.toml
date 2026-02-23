@@ -3,5 +3,6 @@ main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
 [vars]
-# Default to a mock or one of the backends
-DEFAULT_BACKEND_URL = "http://localhost:4000"
+ENVIRONMENT = "cloud"
+DEFAULT_BACKEND = "hono-d1"
+BACKEND_HONO_D1_URL = "https://hono-d1-backend.salalite.workers.dev"
