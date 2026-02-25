@@ -1,5 +1,55 @@
 const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || 'https://hono-d1-backend.salalite.workers.dev';
-const BACKEND_HEADER = 'hono-d1';
+
+export type Backend = 'hono-d1' | 'bun-sqlite';
+
+export const BACKENDS: Record<Backend, { id: Backend; name: string; description: string }> = {
+  'hono-d1': {
+    id: 'hono-d1',
+    name: 'Hono D1',
+    description: 'Cloudflare Workers + D1 (Remote)',
+  },
+  'bun-sqlite': {
+    id: 'bun-sqlite',
+    name: 'Bun SQLite',
+    description: 'Bun + SQLite (Local)',
+  },
+};
+
+const STORAGE_KEY = 'gtd-backend';
+
+function getStoredBackend(): Backend {
+  if (typeof window === 'undefined') return 'hono-d1';
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored && (stored === 'hono-d1' || stored === 'bun-sqlite')) {
+    return stored as Backend;
+  }
+  return 'hono-d1';
+}
+
+export function getCurrentBackend(): Backend {
+  return getStoredBackend();
+}
+
+export function setCurrentBackend(backend: Backend): void {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(STORAGE_KEY, backend);
+  }
+}
+
+export async function checkBackendHealth(backend: Backend): Promise<boolean> {
+  try {
+    const response = await fetch(`${GATEWAY_URL}/health`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-backend': backend,
+      },
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
 
 interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -9,12 +59,13 @@ interface RequestOptions {
 
 async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, headers = {} } = options;
+  const backend = getCurrentBackend();
   
   const response = await fetch(`${GATEWAY_URL}${endpoint}`, {
     method,
     headers: {
       'Content-Type': 'application/json',
-      'x-backend': BACKEND_HEADER,
+      'x-backend': backend,
       ...headers,
     },
     body: body ? JSON.stringify(body) : undefined,

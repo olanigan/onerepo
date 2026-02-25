@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Task, TaskStatus, TaskInput } from '../types';
 import { TaskCard } from '../components/TaskCard';
 import { TaskModal } from '../components/TaskModal';
+import { BackendSelector } from '../components/BackendSelector';
 import { api, ApiTask } from '../lib/api';
 
 function mapApiTaskToTask(apiTask: ApiTask): Task {
@@ -165,8 +166,9 @@ export default function Home() {
             )}
           </div>
           
-          <div className="flex items-center gap-3">
-             <div className="text-sm text-slate-500 font-medium">
+<div className="flex items-center gap-3">
+            <BackendSelector />
+              <div className="text-sm text-slate-500 font-medium">
                 {completionRate}% complete
              </div>
              <div className="text-sm text-slate-500 font-medium">
