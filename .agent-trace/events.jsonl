@@ -23,3 +23,4 @@
 {"timestamp":"2026-02-25T01:23:31.839Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","docs: add backend selection UI tasks to sprint","--spec-id","SPEC-UI-002"],"options":{}}}
 {"timestamp":"2026-02-25T01:34:46.127Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","feat: implement backend selection UI for gateway routing","--spec-id","SPEC-UI-002"],"options":{}}}
 {"timestamp":"2026-02-25T01:42:42.299Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","chore: update bun.lock with dependencies","--spec-id","SPEC-UI-002"],"options":{}}}
+{"timestamp":"2026-02-25T02:22:27.753Z","type":"trace","message":"Executing command: onecoder","details":{"args":["sprint","commit","-m","fix: use direct backend URLs to bypass Cloudflare Workers inter-call issue","--spec-id","SPEC-UI-002"],"options":{}}}

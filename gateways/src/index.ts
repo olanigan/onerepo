@@ -61,18 +61,36 @@ async function proxyRequest(
   const url = new URL(request.url);
   const targetUrl = `${backend.url}${url.pathname}${url.search}`;
   
-  const headers = new Headers(request.headers);
-  headers.set('x-forwarded-for', request.headers.get('cf-connecting-ip') || 'unknown');
-  headers.set('x-gateway-version', '1.0.0');
-  headers.delete('host');
-
+  console.log(`Proxying to: ${targetUrl}`);
+  console.log(`Backend: ${backend.id} - ${backend.url}`);
+  
   try {
+    console.log(`Fetching from ${targetUrl}...`);
+    console.log(`Method: ${request.method}`);
+    
+    const newHeaders: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'x-forwarded-for': request.headers.get('cf-connecting-ip') || 'unknown',
+      'x-gateway-version': '1.0.0',
+    };
+    
+    const backendHeader = request.headers.get('x-backend');
+    if (backendHeader) {
+      newHeaders['x-backend'] = backendHeader;
+    }
+    
+    console.log(`Headers: ${JSON.stringify(newHeaders)}`);
+    const requestBody = request.method === 'GET' || request.method === 'HEAD' ? undefined : request.body;
     const response = await fetch(targetUrl, {
       method: request.method,
-      headers,
-      body: request.body,
+      headers: newHeaders,
+      body: requestBody,
       signal: AbortSignal.timeout(timeout)
     });
+    console.log(`Response status: ${response.status}`);
+    const text = await response.text();
+    console.log(`Response body (first 200 chars): ${text.substring(0, 200)}`);
 
     const corsHeaders = new Headers({
       'Access-Control-Allow-Origin': '*',
@@ -80,12 +98,13 @@ async function proxyRequest(
       'Access-Control-Allow-Headers': 'Content-Type, x-backend, x-backend-location'
     });
 
-    return new Response(response.body, {
+    return new Response(text, {
       status: response.status,
       statusText: response.statusText,
       headers: corsHeaders
     });
   } catch (error) {
+    console.error(`Proxy error: ${error}`);
     return new Response(
       JSON.stringify({ error: 'Backend unavailable', message: error instanceof Error ? error.message : 'Unknown error' }),
       { status: 503, headers: { 'Content-Type': 'application/json' } }

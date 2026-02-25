@@ -1,17 +1,19 @@
-const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || 'https://hono-d1-backend.salalite.workers.dev';
+const HONO_D1_URL = process.env.NEXT_PUBLIC_HONO_D1_URL || 'https://hono-d1-backend.salalite.workers.dev';
 
 export type Backend = 'hono-d1' | 'bun-sqlite';
 
-export const BACKENDS: Record<Backend, { id: Backend; name: string; description: string }> = {
+export const BACKENDS: Record<Backend, { id: Backend; name: string; description: string; url: string }> = {
   'hono-d1': {
     id: 'hono-d1',
     name: 'Hono D1',
     description: 'Cloudflare Workers + D1 (Remote)',
+    url: HONO_D1_URL,
   },
   'bun-sqlite': {
     id: 'bun-sqlite',
     name: 'Bun SQLite',
     description: 'Bun + SQLite (Local)',
+    url: 'http://localhost:3001',
   },
 };
 
@@ -38,11 +40,11 @@ export function setCurrentBackend(backend: Backend): void {
 
 export async function checkBackendHealth(backend: Backend): Promise<boolean> {
   try {
-    const response = await fetch(`${GATEWAY_URL}/health`, {
+    const backendInfo = BACKENDS[backend];
+    const response = await fetch(`${backendInfo.url}/health`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-backend': backend,
       },
     });
     return response.ok;
@@ -60,12 +62,13 @@ interface RequestOptions {
 async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, headers = {} } = options;
   const backend = getCurrentBackend();
+  const backendInfo = BACKENDS[backend];
+  const url = `${backendInfo.url}${endpoint}`;
   
-  const response = await fetch(`${GATEWAY_URL}${endpoint}`, {
+  const response = await fetch(url, {
     method,
     headers: {
       'Content-Type': 'application/json',
-      'x-backend': backend,
       ...headers,
     },
     body: body ? JSON.stringify(body) : undefined,
