@@ -8,6 +8,10 @@ A multi-language implementation of the same GTD (Getting Things Done) applicatio
 - **Gateway**: Cloudflare Workers (Routes traffic based on `x-backend` header)
 - **Contract**: OpenAPI v3 (`specs/openapi.yaml`)
 
+## Demo
+
+- **Live Frontend**: [https://gtd.unblockd.dev/](https://gtd.unblockd.dev/)
+
 ## Backends (Targets)
 
 | Language | Framework | Path | Status |

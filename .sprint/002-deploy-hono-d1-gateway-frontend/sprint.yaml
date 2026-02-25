@@ -4,12 +4,12 @@ sprintId: 002-deploy-hono-d1-gateway-frontend
 name: deploy-hono-d1-gateway-frontend
 title: Deploy Hono D1 + Gateway + Frontend
 status:
-  phase: implementation
+  phase: in-progress
   state: active
-  message: Starting frontend refactor to match backend model
+  message: Working on task implement-backend-selection-ui
 metadata:
   createdAt: 2026-02-21T14:30:00Z
-  updatedAt: 2026-02-21T14:30:00Z
+  updatedAt: 2026-02-25T00:52:47.523Z
   parentComponent: onecoder-cli
   specId: SPEC-CLI-003
   deploymentTarget: Cloudflare (Pages + Workers + D1)
@@ -18,12 +18,14 @@ tasks:
     title: Update types.ts with backend model
     status: completed
     type: refactor
-    description: Replace TimeSegment with backend status (inbox/next/waiting/done), update Task interface to match backend schema
+    description: Replace TimeSegment with backend status (inbox/next/waiting/done),
+      update Task interface to match backend schema
   - id: task-002
     title: Update TaskCard with new status buttons
     status: completed
     type: refactor
-    description: Replace move buttons (PRIORITY/BACKLOG/ARCHIVED) with backend status (inbox/next/waiting/done)
+    description: Replace move buttons (PRIORITY/BACKLOG/ARCHIVED) with backend
+      status (inbox/next/waiting/done)
   - id: task-003
     title: Update TaskModal with status selector
     status: completed
@@ -33,7 +35,8 @@ tasks:
     title: Update page.tsx columns to status view
     status: completed
     type: refactor
-    description: Replace Morning/Afternoon/Evening columns with Inbox/Next/Waiting/Done columns
+    description: Replace Morning/Afternoon/Evening columns with
+      Inbox/Next/Waiting/Done columns
   - id: task-005
     title: Update page.tsx views and filters
     status: completed
@@ -43,7 +46,8 @@ tasks:
     title: Redesign Insights dashboard
     status: completed
     type: refactor
-    description: Replace time-segment metrics with status-based metrics (inbox count, completion rate, weekly trends)
+    description: Replace time-segment metrics with status-based metrics (inbox
+      count, completion rate, weekly trends)
   - id: task-007
     title: Add gateway environment config
     status: completed
@@ -53,7 +57,8 @@ tasks:
     title: Implement BackendRegistry interface
     status: completed
     type: implementation
-    description: Create gateway with BackendRegistry interface, environment-based config for backend URLs
+    description: Create gateway with BackendRegistry interface, environment-based
+      config for backend URLs
   - id: task-009
     title: Add x-backend header routing
     status: completed
@@ -118,7 +123,8 @@ tasks:
     title: Revise ADR-001
     status: completed
     type: documentation
-    description: Update ADR status to Active, document actual implementation, add Hono D1 section
+    description: Update ADR status to Active, document actual implementation, add
+      Hono D1 section
   - id: task-022
     title: Update migration path
     status: completed
@@ -128,12 +134,16 @@ tasks:
     title: Deploy frontend to Cloudflare Pages
     status: completed
     type: deployment
-    description: Deployed Next.js frontend to Cloudflare Pages (requires @cloudflare/next-on-pages adapter for full functionality)
+    description: Deployed Next.js frontend to Cloudflare Pages (requires
+      @cloudflare/next-on-pages adapter for full functionality)
   - id: task-024
     title: Verify end-to-end functionality
     status: completed
     type: verification
     description: Backend API fully functional, tested CRUD operations
+  - id: implement-backend-selection-ui
+    title: Task implement-backend-selection-ui
+    status: in-progress
 artifacts:
   readme: README.md
   retro: RETRO.md
