@@ -144,6 +144,36 @@ tasks:
   - id: implement-backend-selection-ui
     title: Task implement-backend-selection-ui
     status: in-progress
+  - id: task-025
+    title: Update gateway config with local backend URLs
+    status: todo
+    type: config
+    description: Add BACKEND_BUN_SQLITE_URL and other local backend URLs to gateways/wrangler.toml
+  - id: task-026
+    title: Update frontend API layer with backend selection
+    status: todo
+    type: refactor
+    description: Modify frontend/lib/api.ts to support dynamic backend selection via x-backend header
+  - id: task-027
+    title: Create BackendSelector dropdown component
+    status: todo
+    type: implementation
+    description: Create frontend/components/BackendSelector.tsx with dropdown for backend selection
+  - id: task-028
+    title: Add BackendSelector to Header component
+    status: todo
+    type: UI
+    description: Integrate BackendSelector into frontend/components/Header.tsx
+  - id: task-029
+    title: Persist backend selection in localStorage
+    status: todo
+    type: implementation
+    description: Save selected backend to localStorage for persistence across sessions
+  - id: task-030
+    title: Add health check for backend availability
+    status: todo
+    type: implementation
+    description: Implement health check to verify selected backend is reachable before switching
 artifacts:
   readme: README.md
   retro: RETRO.md
