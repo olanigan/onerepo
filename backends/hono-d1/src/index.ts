@@ -173,4 +173,150 @@ app.get('/projects/:id/tasks', async (c) => {
   return c.json(results || []);
 });
 
+// Benchmark endpoints
+app.post('/benchmark/cpu-bound', async (c) => {
+  const body = await c.req.json();
+  const iterations = body.iterations || 100000;
+
+  const startTime = Date.now();
+  const startMemory = (typeof globalThis !== 'undefined' && globalThis.gc) ? 0 : 0;
+
+  let result = 0;
+  for (let i = 0; i < iterations; i++) {
+    const n = 97;
+    for (let j = 2; j <= Math.sqrt(n); j++) {
+      if (n % j === 0) {
+        result += j;
+      }
+    }
+    const a = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+    const b = [[9, 8, 7], [6, 5, 4], [3, 2, 1]];
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        for (let k = 0; k < 3; k++) {
+          result += a[row][k] * b[k][col];
+        }
+      }
+    }
+  }
+
+  const endTime = Date.now();
+
+  return c.json({
+    type: 'cpu-bound',
+    iterations,
+    duration_ms: endTime - startTime,
+    result: result % 100,
+  });
+});
+
+app.post('/benchmark/io-heavy', async (c) => {
+  const body = await c.req.json();
+  const delay = body.delay || 50;
+
+  const startTime = Date.now();
+  const startDelay = Date.now();
+  while (Date.now() - startDelay < delay) {
+    // Busy wait
+  }
+
+  const { results } = await c.env.DB.prepare('SELECT * FROM tasks LIMIT 10').all();
+
+  const endTime = Date.now();
+
+  return c.json({
+    type: 'io-heavy',
+    delay_ms: delay,
+    actual_duration_ms: endTime - startTime,
+    tasks_retrieved: results?.length || 0,
+  });
+});
+
+app.post('/benchmark/memory', async (c) => {
+  const body = await c.req.json();
+  const allocationMB = body.allocationMB || 50;
+
+  const startTime = Date.now();
+
+  const arrays: number[][] = [];
+  const bytesPerMB = 1024 * 1024;
+  const elementsPerMB = bytesPerMB / 8;
+
+  for (let mb = 0; mb < Math.min(allocationMB, 10); mb++) {
+    const arr = new Array(elementsPerMB);
+    for (let i = 0; i < elementsPerMB; i++) {
+      arr[i] = Math.random();
+    }
+    arrays.push(arr);
+  }
+
+  arrays.length = 0;
+
+  const endTime = Date.now();
+
+  return c.json({
+    type: 'memory',
+    allocated_mb: allocationMB,
+    duration_ms: endTime - startTime,
+  });
+});
+
+app.post('/benchmark/cascading', async (c) => {
+  const body = await c.req.json();
+  const depth = body.depth || 3;
+
+  const startTime = Date.now();
+
+  let result = 0;
+  for (let i = 0; i < depth; i++) {
+    const id = crypto.randomUUID();
+    const now = new Date().toISOString();
+
+    await c.env.DB.prepare(
+      'INSERT INTO tasks (id, title, description, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)'
+    ).bind(id, `Task ${i}`, '', 'inbox', now, now).run();
+
+    const { results } = await c.env.DB.prepare('SELECT * FROM tasks WHERE id = ?').bind(id).first();
+    if (results) result++;
+
+    const { results: listResults } = await c.env.DB.prepare('SELECT * FROM tasks LIMIT 5').all();
+  }
+
+  const endTime = Date.now();
+
+  return c.json({
+    type: 'cascading',
+    depth,
+    duration_ms: endTime - startTime,
+    operations_completed: result,
+  });
+});
+
+app.post('/benchmark/malicious', async (c) => {
+  const body = await c.req.json();
+  const payloadSizeMB = body.payloadSizeMB || 10;
+
+  const startTime = Date.now();
+
+  const charCount = Math.min(payloadSizeMB, 5) * 1024 * 1024;
+  let largeString = '';
+  for (let i = 0; i < charCount; i++) {
+    largeString += String.fromCharCode(65 + (i % 26));
+  }
+
+  let checksum = 0;
+  for (let i = 0; i < largeString.length; i += 1000) {
+    checksum += largeString.charCodeAt(i);
+  }
+
+  const endTime = Date.now();
+
+  return c.json({
+    type: 'malicious',
+    payload_size_mb: payloadSizeMB,
+    duration_ms: endTime - startTime,
+    checksum,
+  });
+});
+
 export default app;
