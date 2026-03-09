@@ -2,3 +2,7 @@
 	path = backends
 	url = https://github.com/olanigan/onerepo-backend.git
 	branch = main
+[submodule "mcp"]
+	path = mcp
+	url = https://github.com/olanigan/onerepo-mcp.git
+	branch = main
