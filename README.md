@@ -44,7 +44,7 @@ make update
 ```
 
 ## 📜 Governance
-This project follows the **Mega Engine** governance model, prioritizing:
+This project follows the **Onecoder** governance model, prioritizing:
 - **NCL (No Context Loss)**: Deeply documented design decisions.
 - **ZTD (Zero Tech Debt)**: Enforced through strict linting and validation gates.
 - **Atomic Traceability**: All changes are tracked via the `OneCoder CLI`.
