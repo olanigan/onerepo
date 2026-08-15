@@ -8,5 +8,5 @@
 	branch = main
 [submodule "strix"]
 	path = strix
-	url = https://github.com/usestrix/strix
-	branch = main
+	url = https://github.com/moyohussein/strix.git
+	branch = proppizo-pentest
