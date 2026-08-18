@@ -6,3 +6,7 @@
 	path = mcp
 	url = https://github.com/olanigan/onerepo-mcp.git
 	branch = main
+[submodule "strix"]
+	path = strix
+	url = https://github.com/moyohussein/strix.git
+	branch = proppizo-pentest
